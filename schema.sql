@@ -13,6 +13,13 @@ create table sounds (
     tag text
 );
 
+create table users (
+    id serial primary key,
+    name text,
+    phone_number varchar(20),
+    hash text
+);
+
 -- create table books (
 --     id serial primary key,
 --     title text
@@ -26,14 +33,7 @@ create table sounds (
 
 
 
--- create table users (
---     id serial primary key,
---     name text,
---     email text,
---     username text,
---     password text,
---     dateJoined date
--- );
+
 
 -- create table usersSavedData (
 --     id serial primary key,

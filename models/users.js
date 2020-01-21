@@ -1,35 +1,49 @@
 const db = require('./connection');
+const bcrypt = require('bcryptjs');
 
-async function all() {
-    try {
-        // .query and .any are the same function
-        // const thePets = await db.query(`select * from pets;`);
-        const theUsers = await db.any(`select * from users;`);
-        console.log(theUsers);
-        return theUsers;
-    } catch (err) {
-        console.log(err)
-        return [];
-    }
+function createHash(password) {
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
+}
+
+// Create
+function create(username, password) {
+    const hash = createHash(password);
+    const theuser =
+    db.none(`insert into users(name, hash) values ($1, $2)`, [username, hash]);
+    return hash;
+    // values(name, hash);
+    console.log('running this function');   
 }
 
 // Retrieve
-async function one(id) {
-    try {
-        // Use .one() if there should exactly one result.
-        // const onePet = await db.one(`select * from pets where id=${id}`);
-
-        // $1 is syntax specfic to pg-promise
-        // it means interpolate the 1st value from the array
-        // (in this case, that's the `id` that we received as an argument)
-        const oneUser = await db.one(`select * from users where id=$1`, [id]);
-        return oneUser;
-    } catch (err) {
-        return null;
-    }
+async function login(username, password) {
+    console.log("hey this functiOn is running")
+    const theUser = await getByUsername(username);
+    return bcrypt.compareSync(password, theUser.hash);
 }
 
+async function getByUsername(username) {
+    const theUser =  await db.one(`
+    select * from users where name=$1
+    `, [username]);
+
+    return theUser;
+}
+
+
+// function getById(id) {
+
+// }
+// Update
+
+// Delete
+
+// where name=$1
 module.exports = {
-    all,
-    one
-}
+    create,
+    login,
+    getByUsername
+
+};
+
