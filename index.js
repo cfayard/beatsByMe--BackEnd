@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const PORT = 3000;
+const path = require('path');
 
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
@@ -11,6 +12,8 @@ app.use(session({
     // We will move this to a secure location, shortly.
     secret: 'lalala1234lalala'
 }));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Let's see what's in the session!!!!
 app.use((req, res, next) =>  {
@@ -22,11 +25,11 @@ app.use((req, res, next) =>  {
 });
 
 // See all users
-// app.get('/users', async (req, res) => {
-//     const theUsers = await users.all();
-//     // res.send('you want /users');
-//     res.json(theUsers);
-// })
+app.get('/users', async (req, res) => {
+    const theUsers = await users.all();
+    // res.send('you want /users');
+    res.json(theUsers);
+})
 
 // See all packs
 // app.get('/packs', async (req, res) => {
@@ -76,7 +79,14 @@ app.get('/packs/:id(\\d+)', async (req, res) => {
 app.get('/sounds/:id(\\d+)', async (req, res) => {
     const { id } = req.params;
     const theSounds = await sequencerTable.getUrlForSound(id);
-    res.json(theSounds);
+    // res.json(theSounds[0].url);
+    res.render('soundItem', 
+        {
+            locals: {
+                url: `/audio-files/${encodeURI(theSounds[0].url)}`
+            }
+        }
+    )
 });
 
 
@@ -128,6 +138,17 @@ app.post('/signup', parseForm, (req, res) => {
     res.redirect('http://lethal-turn.surge.sh/');
     });
     
+// Go to site
+app.get('/', (req, res) => {
+    res.render('templates/index');
+});
+
+app.post('/signup', parseForm, (req, res) => {
+    const {name, password} = req.body;
+    users.create(name, password);
+    res.redirect('http://lethal-turn.surge.sh/');
+    });
+
 // Login!
 app.get('/login', (req, res) => {
     res.render('owners/auth');
