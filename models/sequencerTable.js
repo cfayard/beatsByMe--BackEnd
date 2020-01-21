@@ -1,5 +1,12 @@
 const db = require('./connection');
 
+// import entire SDK
+var AWS = require('aws-sdk');
+// import AWS object without services
+var AWS = require('aws-sdk/global');
+// import individual service
+var S3 = require('aws-sdk/clients/s3');
+
 
 // Get everything in sequencer packs table
 async function all() {

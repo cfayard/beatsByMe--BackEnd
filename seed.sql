@@ -142,9 +142,6 @@ values
   ('wishing well', 2, 'Wishing Well 001 GMaj7.wav', 'sauce');
  
 
-
-
-
 insert into users
     (name, phone_number, hash)
 values

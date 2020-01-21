@@ -2,10 +2,8 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const PORT = 3000;
+
 const session = require('express-session');
-
-
-
 const FileStore = require('session-file-store')(session);
 app.use(session({
     store: new FileStore({}),
@@ -68,18 +66,18 @@ app.use((req, res, next) =>  {
 
 
 // get single pack by id
-// app.get('/packs/:id(\\d+)', async (req, res) => {
-//     const { id } = req.params;
-//     const theSounds = await sequencerTable.getSinglePack(id);
-//     res.json(theSounds);
-// })
+app.get('/packs/:id(\\d+)', async (req, res) => {
+    const { id } = req.params;
+    const theSounds = await sequencerTable.getSinglePack(id);
+    res.json(theSounds);
+})
 
 // get url for single sound
 app.get('/sounds/:id(\\d+)', async (req, res) => {
     const { id } = req.params;
     const theSounds = await sequencerTable.getUrlForSound(id);
     res.json(theSounds);
-})
+});
 
 
 // app.get('/users/:id(\\d+)', async (req, res) => {
@@ -114,7 +112,6 @@ function requireLogin(req, res, next) {
         console.log('requireLogin says your are OK');
         next();
     } else {
-        console.log('💩💩💩💩💩💩💩💩💩💩Stranger Danger!!!!!💩💩💩💩💩💩💩💩💩💩');
         res.redirect('/login');
     }
 }
