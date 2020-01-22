@@ -90,14 +90,15 @@ app.get('/packs/everything', async (req, res) => {
 // get url for single sound
 app.get('/sounds/:id(\\d+)', async (req, res) => {
     const { id } = req.params;
+    // console.log(req.params)
     const theSounds = await sequencerTable.getUrlForSound(id);
     // const theSoundsName = await sequencerTable.getNameForEachSound(id);
     // res.json(theSounds[0].url);
+    console.log(theSounds)
     res.render('soundItem', 
         {
             locals: {
                 url: `/audio-files/${encodeURI(theSounds[0].url)}`
-                // name: `theSoundsName.name`
             }
         }
     )
@@ -111,6 +112,11 @@ app.get('/users/:id(\\d+)', async (req, res) => {
     const theUser = await users.getById(id);
     res.json(theUser);
 });
+
+// app.post('/users/:id(\\d+)', async (req, res) => {
+//     const theUser = await users.getById(id);
+//     res.render('owners/sounditem');
+// });
 
 
 
@@ -154,7 +160,7 @@ app.post('/signup', parseForm, (req, res) => {
 
 // Login!
 app.get('/login', (req, res) => {
-    res.render('owners/auth');
+    res.render('owners/auth2');
 });
 
 app.post('/login', parseForm, async (req, res) => {
@@ -226,17 +232,17 @@ app.get('/goodbye', (req, res) => {
 
 
 // Individual sound page
-// app.get('/sounditem', (req, res) => {
-//     res.render('templates/soundItem');
-//     res.render('soundItem', 
-//     {
-//         locals: {
-//             url: `/audio-files/${encodeURI(theSounds[0].url)}`
-//             // name: ``
-//         }
-//     }
-// )
-// });
+app.get('/sounditem', (req, res) => {
+    res.render('templates/soundItem');
+    res.render('soundItem', 
+    {
+        locals: {
+            url: `/audio-files/${encodeURI(theSounds[0].url)}`
+            // name: ``
+        }
+    }
+)
+});
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

@@ -51,7 +51,7 @@ async function getSinglePack(id) {
 
 async function getAllPacks() {
     try {
-        const thePacks = await db.any(`select * from sounds where packs = 1`);
+        const thePacks = await db.any(`select * from sounds where packs = 3`);
         console.log(thePacks);
         return thePacks;
     } catch (err) {
@@ -94,16 +94,27 @@ async function getUrlForSound(id) {
 }
 
 
-async function getEverything() {
+// async function getEverything() {
+//     try {
+//         const everything = await db.any(`select * from sounds, packs, soundpacks where sounds.id=soundpacks.soundid AND packs.id=soundpacks.packid AND soundpacks.packid = 3`);
+//         console.log(everything);
+//         return everything;
+//     } catch (err) {
+//         console.log(err)
+//         return [];
+//     }
+// }
+
+async function seeSoundPreview() {
     try {
-        const everything = await db.any(`select * from sounds, packs, soundpacks where sounds.id=soundpacks.soundid AND packs.id=soundpacks.packid AND soundpacks.packid = 3`);
+        const everything = await db.any(`select url from sounds where id = 100`);
         console.log(everything);
         return everything;
-    } catch (err) {
-        console.log(err)
-        return [];
-    }
-}
+    }  catch (err) {
+                console.log(err)
+                return [];
+            
+}}
 
 module.exports = {
     all,
@@ -112,8 +123,7 @@ module.exports = {
     getAllUrlsFromEachPack,
     getSinglePack,
     getUrlForSound,
-    getEverything
-    // getNameForEachSoundx
+    seeSoundPreview
 }
 
 
