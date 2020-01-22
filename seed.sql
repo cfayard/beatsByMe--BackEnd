@@ -3,7 +3,8 @@ insert into packs
     (name, contributor)
 values
  ('kc-masterpiece', 'casey'),
- ('trunk-shakin', 'nedim');
+ ('trunk-shakin', 'nedim'),
+ ('class-samples', 'class-unknowingly');
     
 insert into sounds
     (name, url, tag)
@@ -139,10 +140,61 @@ values
   ('creator', 'The Creator 001 A#Maj7.wav', 'sauce'),
   ('thief', 'Thief 001 C#Maj9.wav', 'sauce'),
   ('vintage', 'Vintage 001 D#Maj9.wav', 'sauce'),
-  ('wishing well', 'Wishing Well 001 GMaj7.wav', 'sauce');
- 
+  ('wishing well', 'Wishing Well 001 GMaj7.wav', 'sauce'),
+  ('backend-intro', 'public/audio-files/20191219 - 1. backend intro.mp3', 'espionage'),
+  ('nodeandnpmintro', 'public/audio-files/20191219 - 2. node and npm intro.mp3', 'espionage'),
+  ('modulesintro1', 'public/audio-files/20191219 - 3. modules intro (1).mp3', 'espionage'),
+  ('httpintro', 'public/audio-files/20191220 - 1. http intro.mp3', 'espionage'),
+  ('httpandfs1', 'public/audio-files/20191220 - 2. http and fs (1).mp3', 'espionage'),
+  ('httpandfs', 'public/audio-files/20191220 - 2. http and fs.mp3', 'espionage'),
+  ('awsdeployment31', 'public/audio-files/20200103 - aws deployment 3 (1).mp3', 'espionage'),
+  ('awsdeployment32', 'public/audio-files/20200103 - aws deployment 3 (2).mp3', 'espionage'),
+  ('awsdeployment33', 'public/audio-files/20200103 - aws deployment 3 (3).mp3', 'espionage'),
+  ('awsdeployment34' ,'public/audio-files/20200103 - aws deployment 3 (4).mp3', 'espionage'),
+  ('awsdeployment35', 'public/audio-files/20200103 - aws deployment 3 (5).mp3', 'espionage'),
+  ('awsdeployment36', 'public/audio-files/20200103 - aws deployment 3 (6).mp3', 'espionage'),
+  ('awsdeployment32', 'public/audio-files/20200103 - aws deployment 3.mp3', 'espionage'),
+  ('awsdeployment3', 'public/audio-files/20200103 - aws deployment 3.mp3', 'espionage'),
+  ('awsdeployment5' ,'public/audio-files/20200103 - aws deployment 5.mp3', 'espionage'),
+  ('solution1', 'public/audio-files/20200106-1-solution.mp3', 'espionage'),
+  ('solution2' ,'public/audio-files/20200106-2-solution.mp3', 'espionage'),
+  ('express1' ,'public/audio-files/20200106-3-express-1.mp3', 'espionage'),
+  ('formpost1', 'public/audio-files/20200108-3-form-post (1).mp3', 'espionage'),
+  ('formpost2' ,'public/audio-files/20200108-3-form-post (2).mp3', 'espionage'),
+  ('formpost3', 'public/audio-files/20200108-3-form-post (3).mp3', 'espionage'),
+  ('formpost4' ,'public/audio-files/20200108-3-form-post (4).mp3', 'espionage'),
+  ('formpost5', 'public/audio-files/20200108-3-form-post (5).mp3', 'espionage'),
+  ('formpost', 'public/audio-files/20200108-3-form-post.mp3', 'espionage'),
+  ('login1', 'public/audio-files/20200108-login-1.mp3', 'espionage'),
+  ('login2', 'public/audio-files/20200108-login-2.mp3', 'espionage'),
+  ('login3', 'public/audio-files/20200108-login-3.mp3', 'espionage'),
+  ('login4', 'public/audio-files/20200108-login-4.mp3', 'espionage'),
+  ('login5', 'public/audio-files/20200108-login-5.mp3', 'espionage'),
+  ('sql1', 'public/audio-files/20200109-sql-intro-1.mp3', 'espionage'),
+  ('sql2', 'public/audio-files/20200109-sql-intro-2.mp3', 'espionage'),
+  ('sql4', 'public/audio-files/20200109-sql-intro-4.mp3', 'espionage'),
+  ('sql5', 'public/audio-files/20200109-sql-intro-2.mp3', 'espionage'),
+  ('sql6', 'public/audio-files/20200109-sql-intro-2.mp3', 'espionage'),
+  ('sqlforeignkeys', 'public/audio-files/20200110-sql-foreign-keys-1.mp3', 'espionage'),
+  ('login21', 'public/audio-files/20200114-04-login-sessions-2 (1).mp3', 'espionage'),
+  ('login22', 'public/audio-files/20200114-04-login-sessions-2 (2).mp3', 'espionage'),
+  ('login23', 'public/audio-files/20200114-04-login-sessions-2 (3).mp3', 'espionage'),
+  ('login24', 'public/audio-files/20200114-04-login-sessions-2 (4).mp3', 'espionage'),
+  ('login25', 'public/audio-files/20200114-04-login-sessions-2 (5).mp3', 'espionage'),
+  ('login26', 'public/audio-files/20200114-04-login-sessions-2 (6).mp3', 'espionage'),
+  ('login27', 'public/audio-files/20200114-04-login-sessions-2 (7).mp3', 'espionage'),
+  ('login28', 'public/audio-files/20200114-04-login-sessions-2 (8).mp3', 'espionage'),
+  ('login2', 'public/audio-files/20200114-04-login-sessions-2.mp3', 'espionage'),
+  ('login3', 'public/audio-files/20200114-04-login-sessions-3.mp3', 'espionage'),
+  ('login4', 'public/audio-files/20200114-04-login-sessions-4.mp3', 'espionage'),
+  ('login5', 'public/audio-files/20200114-04-login-sessions-5.mp3', 'espionage'),
+  ('login6', 'public/audio-files/20200114-04-login-sessions-6.mp3', 'espionage'),
+  ('ssl1', 'public/audio-files/20200114-09-ssl-certificates-1.mp3', 'espionage'),
+  ('ssl2', 'public/audio-files/20200114-10-ssl-certificates-2.mp3', 'espionage'),
+  ('hidingsecretsdotenv', 'public/audio-files/20200114-hiding-secrets-with-dotenv.mp3', 'espionage');
+  
 
- insert into soundpacks
+insert into soundpacks
     (soundid, packid)
 VALUES
     (1, 1),
@@ -168,13 +220,25 @@ VALUES
     (9, 2),
     (10, 2),
     (11, 2),
-    (12, 2)
+    (12, 2),
+    (1, 3),
+    (2, 3),
+    (3, 3),
+    (4, 3),
+    (5, 3),
+    (6, 3),
+    (7, 3),
+    (8, 3),
+    (9, 3),
+    (10, 3),
+    (11, 3),
+    (12, 3);
 
 insert into users
-    (name, phone_number, hash)
+    (name, hash)
 values
-    ('cfayard', '7066692077', '$2a$10$Dt/6Zyd1cV7I8zhL3xAKReFv1Cl6HVwT42BKEQ0P2Qmnv4.WoajBy'),
-    ('nedim', '7066692044', '$2a$10$cQyIxo7pOZlPdm9fUEz0pOvr8SudfcbfU9Do/PXIhND17RfjRgdUu');
+    ('Scott',  '$2a$10$Dt/6Zyd1cV7I8zhL3xAKReFv1Cl6HVwT42BKEQ0P2Qmnv4.WoajBy'),
+    ('Dre', '$2a$10$cQyIxo7pOZlPdm9fUEz0pOvr8SudfcbfU9Do/PXIhND17RfjRgdUu');
 
 
 

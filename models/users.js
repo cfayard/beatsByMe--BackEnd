@@ -32,9 +32,12 @@ async function getByUsername(username) {
 }
 
 
-// function getById(id) {
-
-// }
+async function getById(id) {
+    const theUser = await db.one(`
+    select * from users where id =$1
+    `, [id]);
+    return theUser;
+}
 // Update
 
 // Delete
@@ -43,7 +46,8 @@ async function getByUsername(username) {
 module.exports = {
     create,
     login,
-    getByUsername
+    getByUsername,
+    getById
 
 };
 

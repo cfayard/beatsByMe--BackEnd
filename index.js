@@ -3,13 +3,11 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const path = require('path');
-
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+
 app.use(session({
     store: new FileStore({}),
-
-    // We will move this to a secure location, shortly.
     secret: 'lalala1234lalala'
 }));
 
@@ -32,8 +30,15 @@ app.get('/users', async (req, res) => {
 })
 
 // See all packs
-// app.get('/packs', async (req, res) => {
-//     const theSequencerPacks = await sequencerTable.getAllPacks();
+app.get('/packs', async (req, res) => {
+    const theSequencerPacks = await sequencerTable.getAllPacks();
+    // res.send('you want /users');
+    res.json(theSequencerPacks);
+})
+
+// See sound name
+// app.get('/sounditem', async (req, res) => {
+//     const theSequencerPacks = await sequencerTable.getNameForEachSound();
 //     // res.send('you want /users');
 //     res.json(theSequencerPacks);
 // })
@@ -75,28 +80,37 @@ app.get('/packs/:id(\\d+)', async (req, res) => {
     res.json(theSounds);
 })
 
+// get everything from both tables
+app.get('/packs/everything', async (req, res) => {
+    const theSounds = await sequencerTable.getEverything();
+    res.json(theSounds);
+})
+
+
 // get url for single sound
 app.get('/sounds/:id(\\d+)', async (req, res) => {
     const { id } = req.params;
     const theSounds = await sequencerTable.getUrlForSound(id);
+    // const theSoundsName = await sequencerTable.getNameForEachSound(id);
     // res.json(theSounds[0].url);
     res.render('soundItem', 
         {
             locals: {
                 url: `/audio-files/${encodeURI(theSounds[0].url)}`
+                // name: `theSoundsName.name`
             }
         }
     )
 });
 
 
-// app.get('/users/:id(\\d+)', async (req, res) => {
-//     console.log('you want to get by id');
-//     // show me a single pet by their id
-//     const { id } = req.params;
-//     const theUser = await users.one(id);
-//     res.json(theUser);
-// });
+app.get('/users/:id(\\d+)', async (req, res) => {
+    console.log('you want to get by id');
+    // show me a single pet by their id
+    const { id } = req.params;
+    const theUser = await users.getById(id);
+    res.json(theUser);
+});
 
 
 
@@ -131,18 +145,7 @@ app.get('/signup', (req, res) => {
     res.render('owners/signup');
 });
     
-
-app.post('/signup', parseForm, (req, res) => {
-    const {name, password} = req.body;
-    users.create(name, password);
-    res.redirect('http://lethal-turn.surge.sh/');
-    });
-    
-// Go to site
-app.get('/', (req, res) => {
-    res.render('templates/index');
-});
-
+// Signup
 app.post('/signup', parseForm, (req, res) => {
     const {name, password} = req.body;
     users.create(name, password);
@@ -186,25 +189,53 @@ if (didLoginSuccessfully == true) {
 }
 });
 
-app.get('/logout', (req, res) => {
-    // Get rid of the user's session!
-    // Then redirect them to the login page.
+// Logout!
+app.get('/signout', (req, res) => {
+    res.render('owners/signout');
+});
+
+app.post('/signout', parseForm, async (req, res) => {
+    console.log('does it work?');
+    console.log(req.body);
+    const { name, password } = req.body;
+    const didLoginSuccessfully = await users.login(name, password).catch((error)=>console.log(error))
+  
+    console.log(didLoginSuccessfully);
+if (didLoginSuccessfully == true) {
+    console.log(`yay! you logged out!`);
+
+    const theUser = await users.getByUsername(name);
+
+    req.session.user = {
+        name,
+        id: theUser.id
+    };
+ 
     req.session.destroy(() => {
-        console.log('The session is now destroyed!!!');
-        // This avoids a long-standing
-        // bug in the session middleware
-        res.redirect('/login');
+                console.log('The session is now destroyed!!!');
+                res.redirect('/goodbye');
+            
     });
-    
-})
 
-// Success
-// app.get('/login/success', (req, res) => {
-//     res.render('owners/success');
-// });
+}});
 
-// app.post('/login/success', (req, res) => {
-//     res.render('owners/success');
+// // goodbye!
+app.get('/goodbye', (req, res) => {
+    res.render('owners/goodbye');
+});
+
+
+// Individual sound page
+// app.get('/sounditem', (req, res) => {
+//     res.render('templates/soundItem');
+//     res.render('soundItem', 
+//     {
+//         locals: {
+//             url: `/audio-files/${encodeURI(theSounds[0].url)}`
+//             // name: ``
+//         }
+//     }
+// )
 // });
 
 server.listen(PORT, () => {
